@@ -1,6 +1,7 @@
 <template>
   <div class="game-page">
     <SpaceBackground />
+    <AsteroidField :spaceshipZIndex="spaceshipZIndex" />
     <div class="game-container" @mousemove="moveSpaceship">
       <div class="spaceship-container" :style="{ left: mouseX + 'px', top: mouseY + 'px' }">
         <img class="spaceship" :src="spaceshipImage" alt="Spaceship" />
@@ -11,18 +12,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onUnmounted, Ref } from "vue";
+import { defineComponent, ref, onUnmounted } from "vue";
+import SpaceBackground from "@/components/SpaceBackground.vue";
+import AsteroidField from "@/components/AsteroidField.vue";
 import spaceshipImage from "@/assets/spaceship.png";
 
 export default defineComponent({
   name: "GamePage",
   components: {
+    SpaceBackground,
+    AsteroidField,
   },
   data() {
     return {
       spaceshipImage,
       mouseX: 0,
       mouseY: 0,
+      spaceshipZIndex: 2,
     };
   },
   mounted() {
