@@ -1,43 +1,49 @@
 <template>
-  <div class="game-container" @mousemove="handleMouseMove">
-    <Spaceship :zIndex="spaceshipZIndex" :position="spaceshipPosition" />
-    <AsteroidField :spaceshipZIndex="spaceshipZIndex" :starsFallSpeed="starsFallSpeed" />
+  <div class="game-page">
+    <Spaceship :asteroidCollision="isGameOver" @collision="handleGameOver" />
+    <AsteroidField :isGameOver="isGameOver" @collision="handleGameOver" />
+    <Dialog v-if="isGameOver" @close="handleDialogClose" />
   </div>
 </template>
 
 <script lang="ts">
-import Spaceship from './Spaceship.vue';
-import AsteroidField from './AsteroidField.vue';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref } from "vue";
+import Spaceship from "@/components/Spaceship.vue";
+import AsteroidField from "@/components/AsteroidField.vue";
+import Dialog from "@/components/Dialog.vue";
 
 export default defineComponent({
-  name: 'GamePage',
+  name: "GamePage",
   components: {
     Spaceship,
     AsteroidField,
+    Dialog,
   },
-  data() {
+  setup() {
+    const isGameOver = ref(false);
+
+    function handleGameOver() {
+      isGameOver.value = true;
+    }
+
+    function handleDialogClose() {
+      isGameOver.value = false;
+    }
+
     return {
-      spaceshipZIndex: 100,
-      starsFallSpeed: 0.2,
-      spaceshipPosition: { x: 0, y: 0 },
+      isGameOver,
+      handleGameOver,
+      handleDialogClose,
     };
-  },
-  methods: {
-    handleMouseMove(event: MouseEvent) {
-      this.spaceshipPosition = {
-        x: event.clientX,
-        y: event.clientY,
-      };
-    },
   },
 });
 </script>
 
 <style scoped>
-.game-container {
+.game-page {
   position: relative;
   width: 100%;
   height: 100vh;
+  background-color: #000;
 }
 </style>

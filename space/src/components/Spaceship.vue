@@ -1,58 +1,91 @@
 <template>
-    <div class="spaceship-container" :style="{ left: mouseX + 'px', top: mouseY + 'px' }">
-      <img class="spaceship" :src="spaceshipImage" alt="Spaceship" />
-    </div>
+    <div class="spaceship" :style="spaceshipStyle" ref="spaceshipRef"></div>
   </template>
   
   <script lang="ts">
-  import { defineComponent, ref, onUnmounted } from "vue";
+  import { defineComponent, ref, onMounted, watch } from "vue";
   import spaceshipImage from "@/assets/spaceship.png";
   
   export default defineComponent({
     name: "Spaceship",
-    data() {
-      return {
-        spaceshipImage,
-        mouseX: 0,
-        mouseY: 0,
-      };
+    props: {
+      asteroidCollision: {
+        type: Boolean,
+        required: true,
+      },
     },
-    mounted() {
-      const moveSpaceship = (event: MouseEvent) => {
-        const spaceshipContainer = this.$el as HTMLElement;
-        const spaceshipWidth = spaceshipContainer.offsetWidth;
-        const spaceshipHeight = spaceshipContainer.offsetHeight;
+    setup(props, { emit }) {
+      const spaceshipRef = ref<HTMLElement | null>(null);
+      const spaceshipSize = 50;
+      const spaceshipStyle = ref({
+        top: "calc(50% - 25px)",
+        left: "calc(50% - 25px)",
+      });
   
-        const containerRect = this.$el.parentElement.getBoundingClientRect();
-        const containerLeft = containerRect.left;
-        const containerTop = containerRect.top;
+      const handleMouseMovement = (event: MouseEvent) => {
+        const cursorX = event.clientX - spaceshipSize / 2-480;
+        const cursorY = event.clientY - spaceshipSize / 2;
   
-        const mouseX = event.clientX - containerLeft - spaceshipWidth / 2 +12.5;
-        const mouseY = event.clientY - containerTop - spaceshipHeight / 2;
+        spaceshipStyle.value.top = `${cursorY}px`;
+        spaceshipStyle.value.left = `${cursorX}px`;
   
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
+        const spaceshipRect = spaceshipRef.value?.getBoundingClientRect();
+        const asteroids = document.querySelectorAll(".asteroid");
+        const collisionThreshold = spaceshipSize / 10;
+  
+        if (spaceshipRect) {
+          for (const asteroid of Array.from(asteroids)) {
+            const asteroidRect = asteroid.getBoundingClientRect();
+  
+            if (checkCollision(spaceshipRect, asteroidRect, collisionThreshold)) {
+              emit("collision");
+              break;
+            }
+          }
+        }
       };
   
-      window.addEventListener("mousemove", moveSpaceship);
-  
-      onUnmounted(() => {
-        window.removeEventListener("mousemove", moveSpaceship);
+      onMounted(() => {
+        window.addEventListener("mousemove", handleMouseMovement);
       });
+  
+      function checkCollision(
+        rect1: ClientRect,
+        rect2: ClientRect,
+        threshold: number
+      ): boolean {
+        return (
+          rect1.left - threshold < rect2.right &&
+          rect1.right + threshold > rect2.left &&
+          rect1.top - threshold < rect2.bottom &&
+          rect1.bottom + threshold > rect2.top
+        );
+      }
+  
+      watch(() => props.asteroidCollision, (newValue) => {
+        if (newValue) {
+          // Handle collision here
+          // Show dialog box or perform other actions
+          console.log("Collision occurred");
+        }
+      });
+  
+      return {
+        spaceshipStyle,
+        spaceshipRef,
+      };
     },
   });
   </script>
   
   <style scoped>
-  .spaceship-container {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-  }
-  
   .spaceship {
-    width: 25px;
-    height: 25px;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url("@/assets/spaceship.png");
+    background-size: cover;
+    z-index: 2;
   }
   </style>
+  

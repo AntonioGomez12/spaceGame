@@ -39,10 +39,10 @@ export default defineComponent({
     let startTime = 0;
 
     function createAsteroid(): Asteroid {
-      const minSize = 60;
-      const maxSize = 260;
+      const minSize = 40;
+      const maxSize = 160;
       const size = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
-      const x = Math.random() * screenWidth;
+      const x = Math.random() * screenWidth -100;
       const y = -size;
       const speedY = 0; // Start with zero initial speed
       const accelerationY = 0; // Start with zero initial acceleration
