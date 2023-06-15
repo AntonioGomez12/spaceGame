@@ -1,7 +1,7 @@
 <template>
   <div class="game-page">
     <div class="score-container">
-      <p>Score:{{ counter }}</p>
+      <p>SCORE:{{ counter }}</p>
     </div>
     <div class="content-container">
       <Spaceship :asteroidCollision="isGameOver" @collision="handleGameOver" />
@@ -85,6 +85,6 @@ export default defineComponent({
 p {
   position: absolute;
   font-size: 40px;
-  color: white;
+  color: yellow;
 }
 </style>

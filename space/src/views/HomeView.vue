@@ -1,8 +1,8 @@
 <template>
   <div class="home-view">
     <div class="content">
-      <h1>Welcome to My Game</h1>
-      <button @click="navigateToGamePage">Go to Game</button>
+      <v-title class="title ma-4">SPACE ROCKS</v-title>
+      <button class="play-button" @click="navigateToGamePage">PLAY</button>
     </div>
   </div>
 </template>
@@ -13,8 +13,7 @@ import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   name: "HomeView",
-  components: {
-  },
+  components: {},
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -40,9 +39,27 @@ export default defineComponent({
 
 .content {
   position: absolute;
-  top: 50%;
+  top: 35%; 
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.title {
+  white-space: nowrap;
+  color: yellow;
+  font-size: 80px;
+}
+
+.play-button {
+  font-size: 24px;
+  width: 300px;
+  height: 60px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+
 }
 </style>
