@@ -3,6 +3,7 @@
     <Spaceship :asteroidCollision="isGameOver" @collision="handleGameOver" />
     <AsteroidField :isGameOver="isGameOver" @collision="handleGameOver" />
     <Dialog v-if="isGameOver" @close="handleDialogClose" />
+    <Counter v-if="!isGameOver" />
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import { defineComponent, ref } from "vue";
 import Spaceship from "@/components/Spaceship.vue";
 import AsteroidField from "@/components/AsteroidField.vue";
 import Dialog from "@/components/Dialog.vue";
+import Counter from "@/components/Counter.vue";
 
 export default defineComponent({
   name: "GamePage",
@@ -18,6 +20,7 @@ export default defineComponent({
     Spaceship,
     AsteroidField,
     Dialog,
+    Counter,
   },
   setup() {
     const isGameOver = ref(false);
