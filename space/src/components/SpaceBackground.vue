@@ -9,6 +9,8 @@
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue'
 
+type Timer = ReturnType<typeof setInterval>;
+
 interface Star {
   x: number
   y: number
@@ -21,7 +23,7 @@ export default defineComponent({
   name: 'SpaceBackground',
   setup() {
     const stars = ref<Star[]>([])
-    const animateInterval = ref<Timer | null>(null)
+    const animateInterval = ref<number | undefined>(undefined)
     const startTime = Date.now()
     // Create max speed of stars factor
     const maxSpeed = 5 

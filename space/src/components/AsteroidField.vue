@@ -14,6 +14,8 @@
 import asteroidImage from '@/assets/asteroid.png'
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
 
+type Timer = ReturnType<typeof setInterval>;
+
 interface Asteroid {
   src: string
   size: string
