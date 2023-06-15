@@ -1,8 +1,10 @@
 <template>
   <div class="dialog-overlay">
     <div class="dialog">
-      <h1>Game Over!</h1>
-      <button class="restart-button" @click="restartGame">Restart</button>
+      <h1 class="game-over-title">GAME OVER</h1>
+      <button class="restart-button" @click="restartGame">Play Again?</button>
+      <br>
+      <br>
       <button class="exit-button" @click="exitGame">Exit</button>
     </div>
   </div>
@@ -10,17 +12,20 @@
 
 <script lang="ts">
 import { defineComponent, inject } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Dialog",
   emits: ["close"],
   setup(_, { emit }) {
+    const router = useRouter();
+
     const restartGame = (): void => {
-      emit("close", "restartGame");
+      window.location.reload();
     };
 
     const exitGame = (): void => {
-      emit("close", "exitGame");
+      router.push("/");
     };
 
     return {
@@ -46,14 +51,29 @@ export default defineComponent({
 }
 
 .dialog {
-  background-color: white;
+  background-color: transparent;
   padding: 20px;
   text-align: center;
 }
 
+.game-over-title {
+  color: red;
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
 .restart-button,
 .exit-button {
-  margin-top: 10px;
+  outline: 5px;
+  outline-color: red;
+  font-size: 20px;
+  color: yellow;
+  width: 120px;
+  height: 40px;
+  background-color:transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
 }
 </style>
-
