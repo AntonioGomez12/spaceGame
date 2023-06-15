@@ -16,14 +16,14 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const spaceshipRef = ref<HTMLElement | null>(null);
-    const spaceshipSize = 50;
+    const spaceshipSize = 25;
     const spaceshipStyle = ref({
       top: "calc(50% - 25px)",
       left: "calc(50% - 25px)",
     });
 
     const handleMouseMovement = (event: MouseEvent) => {
-      const cursorX = event.clientX - spaceshipSize / 2 - 480;
+      const cursorX = event.clientX - spaceshipSize / 2 -490;
       const cursorY = event.clientY - spaceshipSize / 2;
 
       spaceshipStyle.value.top = `${cursorY}px`;
@@ -31,7 +31,7 @@ export default defineComponent({
 
       const spaceshipRect = spaceshipRef.value?.getBoundingClientRect();
       const asteroids = document.querySelectorAll(".asteroid");
-      const collisionThreshold = spaceshipSize / 10;
+      const collisionThreshold = spaceshipSize / 1000;
 
       if (spaceshipRect) {
         for (const asteroid of Array.from(asteroids)) {

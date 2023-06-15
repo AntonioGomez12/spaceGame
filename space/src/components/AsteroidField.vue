@@ -33,16 +33,16 @@ export default defineComponent({
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     const maxRotationSpeed = 1;
-    const accelerationFactor = 0.001; // Adjust this value to control the acceleration rate
+    const accelerationFactor = 0.0001; // Adjust this value to control the acceleration rate
     const maxSpeed = 10; // Adjust this value to set the maximum speed
-    const gameplayDuration = 60; // Duration in seconds after which asteroids reach maximum speed
+    const gameplayDuration = 180; // Duration in seconds after which asteroids reach maximum speed
     let startTime = 0;
 
     function createAsteroid(): Asteroid {
       const minSize = 40;
-      const maxSize = 160;
+      const maxSize = 140;
       const size = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
-      const x = Math.random() * screenWidth -100;
+      const x = Math.random() * screenWidth -150;
       const y = -size;
       const speedY = 0; // Start with zero initial speed
       const accelerationY = 0; // Start with zero initial acceleration
@@ -103,7 +103,7 @@ export default defineComponent({
     }
 
     function startAsteroidSpurt(): void {
-      const asteroidCount = Math.floor(Math.random() * 2) + 1; // Randomly spawn between 1 and 2 asteroids in each spurt
+      const asteroidCount = Math.floor(Math.random() * 2); // Randomly spawn between 1 and 2 asteroids in each spurt
 
       for (let i = 0; i < asteroidCount; i++) {
         asteroids.value.push(createAsteroid());
