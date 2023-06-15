@@ -7,77 +7,84 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue';
+import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue'
 
 interface Star {
-  x: number;
-  y: number;
-  speed: number;
-  opacity: number;
-  style: { [key: string]: string };
+  x: number
+  y: number
+  speed: number
+  opacity: number
+  style: { [key: string]: string }
 }
 
 export default defineComponent({
   name: 'SpaceBackground',
   setup() {
-    const stars = ref<Star[]>([]);
-    const animateInterval = ref<number | undefined>(undefined);
-    const startTime = Date.now();
-    const maxSpeed = 5; // Maximum speed of stars
-    const accelerationRate = 0.001; // Rate of acceleration
+    const stars = ref<Star[]>([])
+    const animateInterval = ref<number | undefined>(undefined)
+    const startTime = Date.now()
+    // Create max speed of stars factor
+    const maxSpeed = 5 
+    // Create rate of accel factor for tuning
+    const accelerationRate = 0.001 
 
-    // Calculate the position, speed, and opacity of a star
+    // Calculate the position, speed, and add some opacity to stars
     function calculateStarPosition(): Star {
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      const speed = Math.random() + 1; // Adjust the initial speed as needed
-      const opacity = Math.random() * 0.5 + 0.5; // Adjust the opacity as needed
-      return { x, y, speed, opacity, style: {} };
+      const x = Math.random() * window.innerWidth
+      const y = Math.random() * window.innerHeight
+      //Initial star speed to simulate spaceship moving
+      const speed = Math.random() + 1 
+      //Star Opacity so they look more real
+      const opacity = Math.random() * 0.5 + 0.5
+      return { x, y, speed, opacity, style: {} }
     }
 
     // Create initial stars
     function createStars(): void {
-      const count = Math.floor(window.innerWidth / 20); // Adjust the number of stars as needed
+      // Create number of stars to be floored
+      const count = Math.floor(window.innerWidth / 20) 
       for (let i = 0; i < count; i++) {
-        stars.value.push(calculateStarPosition());
+        stars.value.push(calculateStarPosition())
       }
     }
 
     // Update star positions
     function updateStars(): void {
-      const elapsedTime = (Date.now() - startTime) / 1000;
-      const acceleration = Math.pow(elapsedTime, 2) * accelerationRate; // Exponential acceleration
+      const elapsedTime = (Date.now() - startTime) / 1000
+      // Exponential acceleration
+      const acceleration = Math.pow(elapsedTime, 2) * accelerationRate 
 
       stars.value.forEach((star) => {
-        star.y += star.speed * (1 + acceleration);
+        star.y += star.speed * (1 + acceleration)
 
         // Reset star position if it moves off the screen
         if (star.y > window.innerHeight) {
-          Object.assign(star, calculateStarPosition());
+          Object.assign(star, calculateStarPosition())
         }
 
         star.style = {
           left: `${star.x}px`,
           top: `${star.y}px`,
-          opacity: `${star.opacity}`,
-        };
-      });
+          opacity: `${star.opacity}`
+        }
+      })
     }
 
     onMounted(() => {
-      createStars();
-      animateInterval.value = setInterval(updateStars, 1000 / 60); // Adjust the animation speed as needed
-    });
+      createStars()
+      // Star animation speeds
+      animateInterval.value = setInterval(updateStars, 1000 / 60) 
+    })
 
     onUnmounted(() => {
-      clearInterval(animateInterval.value);
-    });
+      clearInterval(animateInterval.value)
+    })
 
     return {
-      stars: computed(() => stars.value),
-    };
-  },
-});
+      stars: computed(() => stars.value)
+    }
+  }
+})
 </script>
 
 <style scoped>
@@ -87,7 +94,7 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000000; /* Dark background color */
+  background-color: #000000;
   overflow: hidden;
   z-index: -1;
 }

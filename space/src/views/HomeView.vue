@@ -8,26 +8,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { defineComponent } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: "HomeView",
+  name: 'HomeView',
   components: {},
   setup() {
-    const route = useRoute();
-    const router = useRouter();
+    const route = useRoute()
+    const router = useRouter()
 
     const navigateToGamePage = () => {
-      router.push({ name: "GamePage" });
-    };
+      router.push({ name: 'GamePage' })
+    }
 
     return {
       route,
-      navigateToGamePage,
-    };
-  },
-});
+      navigateToGamePage
+    }
+  }
+})
 </script>
 
 <style scoped>
@@ -39,7 +39,7 @@ export default defineComponent({
 
 .content {
   position: absolute;
-  top: 35%; 
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -60,6 +60,5 @@ export default defineComponent({
   border-radius: 10px;
   cursor: pointer;
   outline: none;
-
 }
 </style>

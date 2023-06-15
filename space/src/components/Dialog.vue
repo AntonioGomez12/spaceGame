@@ -3,37 +3,37 @@
     <div class="dialog">
       <h1 class="game-over-title">GAME OVER</h1>
       <button class="restart-button" @click="restartGame">Play Again?</button>
-      <br>
-      <br>
+      <br />
+      <br />
       <button class="exit-button" @click="exitGame">Exit</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent, inject } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: "Dialog",
-  emits: ["close"],
+  name: 'Dialog',
+  emits: ['close'],
   setup(_, { emit }) {
-    const router = useRouter();
+    const router = useRouter()
 
     const restartGame = (): void => {
-      window.location.reload();
-    };
+      window.location.reload()
+    }
 
     const exitGame = (): void => {
-      router.push("/");
-    };
+      router.push('/')
+    }
 
     return {
       restartGame,
-      exitGame,
-    };
-  },
-});
+      exitGame
+    }
+  }
+})
 </script>
 
 <style scoped>
@@ -70,7 +70,7 @@ export default defineComponent({
   color: yellow;
   width: 120px;
   height: 40px;
-  background-color:transparent;
+  background-color: transparent;
   border: none;
   border-radius: 5px;
   cursor: pointer;
