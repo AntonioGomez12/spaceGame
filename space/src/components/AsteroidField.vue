@@ -29,7 +29,7 @@ export default defineComponent({
   name: 'AsteroidField',
   setup() {
     const asteroids = ref<Asteroid[]>([])
-    const asteroidInterval = ref<number>(0)
+    const asteroidInterval = ref<Timer | null>(null)
     const screenWidth = window.innerWidth
     const screenHeight = window.innerHeight
     //Can have asteroid rotation to make the game harder...

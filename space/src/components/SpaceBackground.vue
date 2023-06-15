@@ -21,7 +21,7 @@ export default defineComponent({
   name: 'SpaceBackground',
   setup() {
     const stars = ref<Star[]>([])
-    const animateInterval = ref<number>(0)
+    const animateInterval = ref<Timer | null>(null)
     const startTime = Date.now()
     // Create max speed of stars factor
     const maxSpeed = 5 
