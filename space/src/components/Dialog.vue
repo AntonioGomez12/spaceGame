@@ -21,7 +21,7 @@ export default defineComponent({
     const router = useRouter()
 
     const restartGame = (): void => {
-      window.location.reload()
+      router.push('/game')
     }
 
     const exitGame = (): void => {
