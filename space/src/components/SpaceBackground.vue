@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, computed, onMounted, onUnmounted} from 'vue'
 
 type Timer = ReturnType<typeof setInterval>;
 
@@ -23,7 +23,7 @@ export default defineComponent({
   name: 'SpaceBackground',
   setup() {
     const stars = ref<Star[]>([])
-    const animateInterval = ref<number | undefined>(undefined)
+    const animateInterval = ref<Timer | undefined>(undefined);
     const startTime = Date.now()
     // Create max speed of stars factor
     const maxSpeed = 5 
